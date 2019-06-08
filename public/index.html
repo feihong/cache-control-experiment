@@ -1,0 +1,28 @@
+<html>
+
+<head>
+  <title>Counter</title>
+</head>
+
+<body>
+
+  <button onClick="fetchCounter(true)">Fetch counter</button>
+  <button onClick="fetchCounter(false)">Fetch counter, don't use cache</button>
+  <button onClick="fetchCounter(true, true)">Fetch counter using POST</button>
+  <p id="result"></p>
+
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script>
+    function fetchCounter(useCache, usePost) {
+      let method = usePost ? 'POST' : 'GET'
+      let headers = useCache ? {} : { 'Cache-Control': 'no-cache' }
+      $.ajax('/counter', { headers, method })
+        .done(data => {
+          $('#result').text(data)
+        })
+    }
+  </script>
+
+</body>
+
+</html>
